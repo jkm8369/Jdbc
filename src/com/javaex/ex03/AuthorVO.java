@@ -1,15 +1,12 @@
-package com.javaex.ex01;
+package com.javaex.ex03;
 
-//VO Value Object
+//데이터 담는 전용 케이스
 public class AuthorVO {
 
-	//필드
 	private int authorId;
 	private String authorName;
 	private String authorDesc;
 	
-	
-	//생성자
 	public AuthorVO() {
 		super();
 	}
@@ -21,42 +18,37 @@ public class AuthorVO {
 		this.authorDesc = authorDesc;
 	}
 	
-	
-	//메소드 gs
 	public int getAuthorId() {
 		return authorId;
 	}
-
+	
 	public void setAuthorId(int authorId) {
 		this.authorId = authorId;
 	}
-
+	
 	public String getAuthorName() {
 		return authorName;
 	}
-
+	
 	public void setAuthorName(String authorName) {
 		this.authorName = authorName;
 	}
-
+	
 	public String getAuthorDesc() {
 		return authorDesc;
 	}
-
+	
 	public void setAuthorDesc(String authorDesc) {
 		this.authorDesc = authorDesc;
 	}
 	
 	
-	//메소드 일반
 	@Override
 	public String toString() {
 		return "AuthorVO [authorId=" + authorId + ", authorName=" + authorName + ", authorDesc=" + authorDesc + "]";
 	}
 	
-	public void authorInfo() {
-		System.out.println(authorId + ". " + authorName + " (" + authorDesc + ")");
-	}
+	
 	
 	
 }

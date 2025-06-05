@@ -32,12 +32,14 @@ public class BookSelectAll {
 			query += " select b.book_id, ";
 			query += " 		  b.title, ";
 			query += " 		  b.pubs, ";
-			query += " 		  b.pub_date, ";
-			query += " 		  b.author_id, ";
+			query += " 		  date_format(b.pub_date, '%Y-%m-%d') as pub_date, ";
+			query += " 		  a.author_id, ";
 			query += " 		  a.author_name, ";
 			query += " 		  a.author_desc ";
 			query += " from book b, author a ";
 			query += " where b.author_id = a.author_id ";
+			
+			
 			
 			// 바인딩
 			pstmt = conn.prepareStatement(query);
@@ -52,10 +54,23 @@ public class BookSelectAll {
 				int bookId = rs.getInt("b.book_id");
 				String bookTitle = rs.getString("b.title");
 				String bookPubs = rs.getString("b.pubs");
-				String bookPubDate = rs.getString("b.pub_date");
-				int authorId = rs.getInt("b.author_id");
+				String bookPubDate = rs.getString("pub_date");
+				int authorId = rs.getInt("a.author_id");
 				String authorName = rs.getString("a.author_name");
 				String authorDesc = rs.getString("a.author_desc");
+				
+				/*
+				확인
+				System.out.println(bookId);
+				System.out.println(bookTitle);
+				System.out.println(bookPubs);
+				System.out.println(bookPubDate);
+				System.out.println(authorId);
+				System.out.println(authorName);
+				System.out.println(authorDesc);
+				System.out.println("-----------------------------------------");
+				*/
+				
 				
 				BookAuthorVO bookAuthorVO = new BookAuthorVO(bookId, bookTitle, bookPubs, bookPubDate, 
 															 authorId, authorName, authorDesc);
@@ -90,9 +105,22 @@ public class BookSelectAll {
 
 		}
 
+		/*
+		for(int i=0; i<baList.size(); i++) {
+			//baList.get(i).bookAuthorInfo();
+			BookAuthorVO baVO = baList.get(i);
+			System.out.println(baVO.getBookId() + "." + baVO.getBookTitle() + "," + baVO.getAuthorName());
+		}
+		*/
+		
+		for(BookAuthorVO baVO : baList) {
+			System.out.println(baVO.getBookId() + "." + baVO.getBookTitle() + "," + baVO.getAuthorName());
+		}
+		
 		for(int i=0; i<baList.size(); i++) {
 			baList.get(i).bookAuthorInfo();
 		}
+		
 		
 	}
 
