@@ -44,6 +44,7 @@ public class AuthorDAO {
 			String query = "";
 			query += " insert into author ";
 			query += " values (null, ?, ?) ";
+			System.out.println(query);
 
 			// 바인딩
 			pstmt = conn.prepareStatement(query);
@@ -79,7 +80,7 @@ public class AuthorDAO {
 
 		}
 		return count;
-	}
+	} //insert
 
 	// 작가 수정
 	public int authorUpdate(int authorId, String name, String desc) {
