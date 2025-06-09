@@ -8,8 +8,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.javaex.ex04.AuthorVO;
-
 public class BookDAO {
 
 	private Connection conn = null;
@@ -293,8 +291,63 @@ public class BookDAO {
 		}
 		
 		
+		public List<BookAuthorVO> bookSelectList() {
+			
+			List<BookAuthorVO> baList = new ArrayList<BookAuthorVO>();
+			
+			this.connect();
+			
+			try {
+				
+				// 3. SQL문 준비 / 바인딩 / 실행
+			    // SQL문 준비
+				String query = "";
+				query += " select b.book_id, ";
+				query += " 		  b.title, ";
+				query += " 		  b.pubs, ";
+				query += " 		  date_format(b.pub_date, '%Y-%m-%d') as pub_date, ";
+				query += " 		  a.author_id, ";
+				query += " 		  a.author_name, ";
+				query += " 		  a.author_desc ";
+				query += " from book b, author a ";
+				query += " where b.author_id = a.author_id ";
+				
+				// 바인딩
+				pstmt = conn.prepareStatement(query);
+				
+			    //실행
+				rs = pstmt.executeQuery();
+				
+				//4.결과처리
+				while(rs.next()) {
+					
+					int bookId = rs.getInt("b.book_id");
+					String bookTitle = rs.getString("b.title");
+					String bookPubs = rs.getString("b.pubs");
+					String bookPubDate = rs.getString("pub_date");
+					int authorId = rs.getInt("a.author_id");
+					String authorName = rs.getString("a.author_name");
+					String authorDesc = rs.getString("a.author_desc");
+					
+					//데이터 객체로 만들기(묶기)
+					BookAuthorVO bookAuthorVO = new BookAuthorVO(bookId, bookTitle, bookPubs, bookPubDate, authorId, authorName, authorDesc);
+					
+					//묶은 데이터를 리스트에 담기
+					baList.add(bookAuthorVO);
+					
+				}
+
+			} catch (SQLException e) {
+				System.out.println("error:" + e);
+			} 
+			
+			//5. 자원정리
+			this.close();
+			
+			return baList;
+			
+		}
 		
-	
 	
 
 	
